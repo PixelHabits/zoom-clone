@@ -2,7 +2,6 @@ import LiveTime from '@/components/LiveTime';
 import MeetingTypeList from '@/components/MeetingTypeList';
 
 const Home = () => {
-	"use client"
 	const now = new Date();
 
 	const time = now.toLocaleTimeString('en-us', {
