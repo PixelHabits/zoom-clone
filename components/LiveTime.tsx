@@ -3,30 +3,23 @@ import React, { useState, useEffect, useCallback } from 'react';
 
 const LiveTime = () => {
 	const [date, setDate] = useState(new Date());
-	console.log('Initial Load', date);
+	useEffect(() => {
+		const updateClock = () => setDate(new Date());
 
-	const updateClock = useCallback(() => {
-		setDate(new Date());
-		console.log('Update Clock Load');
+		const msUntilNextMinute = 60000 - (Date.now() % 60000);
+
+		let intervalId: NodeJS.Timeout | null = null;
+
+		const timeoutId = setTimeout(() => {
+			updateClock();
+			intervalId = setInterval(updateClock, 60000);
+		}, msUntilNextMinute);
+
+		return () => {
+			if (intervalId) clearInterval(intervalId);
+			clearTimeout(timeoutId);
+		};
 	}, []);
-
-	useEffect(() => {
-		const initialTime = new Date();
-		const msUntilNextMinute =
-			(60 - initialTime.getSeconds()) * 1000 - initialTime.getMilliseconds();
-
-		const timeoutId = setTimeout(updateClock, msUntilNextMinute);
-
-		return () => clearTimeout(timeoutId);
-	}, [updateClock]);
-
-	useEffect(() => {
-		// let intervalId: NodeJS.Timeout | null = null;
-
-		const intervalId = setInterval(updateClock, 60000);
-
-		return () => clearInterval(intervalId);
-	}, [updateClock]);
 
 	return (
 		<div className='flex flex-col gap-2'>
