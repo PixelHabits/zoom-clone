@@ -10,7 +10,7 @@ import '@stream-io/video-react-sdk/dist/css/styles.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'Zoom-Clone',
+	title: "PixelHabit's Zoom-Clone",
 	description: 'Thanks for checking out my project',
 };
 
